@@ -1,6 +1,6 @@
+from datetime import datetime
 import os
 import time
-from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer, String, create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
@@ -12,7 +12,7 @@ for _ in range(15):
         engine = create_engine(DATABASE_URL)
         engine.connect()
         break
-    except Exception:  # noqa: BLE001
+    except Exception:
         time.sleep(1)
 else:
     engine = create_engine(DATABASE_URL)
