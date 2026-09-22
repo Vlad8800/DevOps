@@ -71,4 +71,4 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
 
 @app.get("/", response_class=HTMLResponse)
 def index():
-    return "<h1>TrackHub API running</h1>"
+    return "<h1>TrackHub Engine running</h1>"
