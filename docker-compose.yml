@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    container_name: devops_api
+    container_name: devops_web
     restart: always
     ports:
       - "8000:8000"
