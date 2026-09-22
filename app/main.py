@@ -1,25 +1,19 @@
-from fastapi import FastAPI, Depends, HTTPException
+from app.database import Base, SessionLocal, Task, engine
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
-from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from typing import Optional
-from app.database import Base, engine, SessionLocal, Task
+from sqlalchemy.orm import Session
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="DevOps TrackHub")
+app = FastAPI(title="TrackHub API")
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 class TaskCreate(BaseModel):
     title: str
-    service_tag: Optional[str] = "core-api"
-    priority: Optional[str] = "medium"
+    service_tag: str | None = "core-api"
+    priority: str | None = "medium"
+
 
 class StatusUpdate(BaseModel):
     status: str
