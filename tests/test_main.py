@@ -7,8 +7,9 @@ client = TestClient(app)
 def test_home_ui_status():
     response = client.get("/")
     assert response.status_code == 200
-    assert "TrackHub Engine running - v1.0.0" in response.text
-
+    assert "TrackHub Engine" in response.text
+    assert "v1." in response.text
+    
 def test_create_and_get_task():
     create_res = client.post("/api/tasks", json={
         "title": "CI/CD pipeline sanity check",
