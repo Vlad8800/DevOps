@@ -1,0 +1,15 @@
+# DVO-L3-7F2A91
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trackhub-config
+  namespace: trackhub
+  labels:
+    app: devops-app
+    mascot: kabachok
+  annotations:
+    devops-lab/mascot: "кабачок"
+    devops-lab/mascot-approved: "true"
+data:
+  APP_ENV: "production"
+  DEFAULT_PRIORITY: "medium"
