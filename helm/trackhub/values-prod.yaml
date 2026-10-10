@@ -1,0 +1,33 @@
+replicaCount: 2
+
+image:
+  tag: "1.1.0"
+
+service:
+  type: NodePort
+  nodePort: 30081
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+config:
+  appEnv: "production"
+  defaultPriority: "medium"
+
+secrets:
+  databaseUrl: "sqlite:///./prod.db"
+  apiSecretKey: "prod-strong-secret-key-xyz"
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: trackhub.prod.local
+      paths:
+        - path: /
+          pathType: Prefix

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: trackhub
+description: Helm chart for TrackHub application
+type: application
+version: 0.1.0
+appVersion: "1.1.0"
