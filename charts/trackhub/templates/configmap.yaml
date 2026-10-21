@@ -7,3 +7,4 @@ metadata:
 data:
   APP_ENV: {{ .Values.config.appEnv | quote }}
   DEFAULT_PRIORITY: {{ .Values.config.defaultPriority | quote }}
+  DATABASE_URL: {{ .Values.config.databaseUrl | quote }}

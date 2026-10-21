@@ -1,0 +1,19 @@
+# Apply only this Application manually after Argo CD is installed.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: trackhub-root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Vlad8800/DevOps.git
+    targetRevision: main
+    path: argocd-apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -10,6 +10,11 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="TrackHub API")
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 def get_db():
     db = SessionLocal()
     try:

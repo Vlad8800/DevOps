@@ -1,0 +1,11 @@
+# Local credentials and generated files
+*.local.yaml
+*.secret.yaml
+.env
+.env.*
+!.env.example
+k8s/secret.yaml
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/

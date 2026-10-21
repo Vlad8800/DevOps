@@ -35,10 +35,10 @@ resources:
 config:
   appEnv: "development"
   defaultPriority: "low"
+  databaseUrl: "sqlite:///./dev.db"
 
 secrets:
-  databaseUrl: "sqlite:///./dev.db"
-  apiSecretKey: "dev-secret-key"
+  existingSecret: ""
 
 probes:
   liveness:

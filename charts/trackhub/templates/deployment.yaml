@@ -32,8 +32,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "trackhub.fullname" . }}-config
+            {{- if .Values.secrets.existingSecret }}
             - secretRef:
-                name: {{ include "trackhub.fullname" . }}-secret
+                name: {{ .Values.secrets.existingSecret | quote }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: {{ .Values.probes.liveness.path }}

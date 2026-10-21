@@ -18,10 +18,7 @@ resources:
 config:
   appEnv: "development"
   defaultPriority: "low"
-
-secrets:
   databaseUrl: "sqlite:///./dev.db"
-  apiSecretKey: "dev-secret-key-123"
 
 ingress:
   enabled: false
