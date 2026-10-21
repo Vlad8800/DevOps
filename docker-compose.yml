@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/lab_db
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/lab_db
     depends_on:
       - db
 

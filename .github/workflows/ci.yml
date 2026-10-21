@@ -51,7 +51,7 @@ jobs:
 
       - name: Run Tests (Pytest)
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lab_db
+          DATABASE_URL: postgresql+psycopg2://postgres:postgres@localhost:5432/lab_db
         run: |
           pytest -v -W ignore
 
