@@ -3,3 +3,9 @@ __pycache__
 .git
 .venv
 *.pyc
+.cache
+.trivycache
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
