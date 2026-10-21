@@ -1,3 +1,6 @@
+import os
+from html import escape
+
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -10,9 +13,18 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="TrackHub API")
 
 
+def app_version():
+    return os.getenv("APP_VERSION", "dev")
+
+
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {"status": "ok", "version": app_version()}
+
+
+@app.get("/version")
+def version():
+    return {"version": app_version()}
 
 
 def get_db():
@@ -76,4 +88,4 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
 
 @app.get("/", response_class=HTMLResponse)
 def index():
-    return "<h1>TrackHub Engine running</h1>"
+    return f"<h1>TrackHub Engine running</h1><p>Version: {escape(app_version())}</p>"

@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/vlad8800/devops
   pullPolicy: IfNotPresent
-  tag: "1.0.0"
+  tag: "1.2.0"
 
 nameOverride: ""
 fullnameOverride: ""
