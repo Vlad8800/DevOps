@@ -6,6 +6,7 @@ metadata:
     {{- include "trackhub.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds | default 600 }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -45,6 +46,6 @@ spec:
           readinessProbe:
             httpGet:
               path: {{ .Values.probes.readiness.path }}
-              port: http
+              port: {{ .Values.probes.readiness.port | default "http" }}
             initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
