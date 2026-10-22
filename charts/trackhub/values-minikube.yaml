@@ -1,6 +1,6 @@
 # GitOps settings for the local minikube cluster.
 # Change image.tag only after that exact tag is published to GHCR.
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: ghcr.io/vlad8800/devops
