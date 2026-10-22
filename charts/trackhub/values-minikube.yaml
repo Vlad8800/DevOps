@@ -13,7 +13,7 @@ service:
 
 config:
   appEnv: "development"
-  defaultPriority: "low"
+  defaultPriority: "hight"
   databaseUrl: "sqlite:///./dev.db"
 
 ingress:
