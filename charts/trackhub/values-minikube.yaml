@@ -4,7 +4,7 @@ replicaCount: 5
 
 image:
   repository: ghcr.io/vlad8800/devops
-  tag: "1.3.0"
+  tag: "1.2.2"
   pullPolicy: Always
 
 service:
