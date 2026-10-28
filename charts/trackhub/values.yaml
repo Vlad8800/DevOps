@@ -49,3 +49,10 @@ probes:
     path: /health
     initialDelaySeconds: 5
     periodSeconds: 5
+rollout:
+  enabled: false
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
