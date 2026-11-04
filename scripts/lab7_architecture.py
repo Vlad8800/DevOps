@@ -4,7 +4,6 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs" / "lab7" / "results" / "architecture.png"
 FONT = Path("C:/Windows/Fonts/arial.ttf")
