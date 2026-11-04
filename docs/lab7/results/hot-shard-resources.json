@@ -1,0 +1,22 @@
+{
+  "naive": {
+    "trackhub-lab7-shard_a-1": {
+      "peak_cpu_percent": 143.09,
+      "peak_memory_mib": 71.44
+    },
+    "trackhub-lab7-shard_b-1": {
+      "peak_cpu_percent": 18.99,
+      "peak_memory_mib": 46.93
+    }
+  },
+  "bucket": {
+    "trackhub-lab7-shard_a-1": {
+      "peak_cpu_percent": 235.99,
+      "peak_memory_mib": 62.92
+    },
+    "trackhub-lab7-shard_b-1": {
+      "peak_cpu_percent": 187.26,
+      "peak_memory_mib": 59.64
+    }
+  }
+}

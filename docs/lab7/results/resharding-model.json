@@ -1,0 +1,16 @@
+{
+  "keys": 10000,
+  "buckets": 128,
+  "modulo_2_to_3_moved_percent": 66.66,
+  "virtual_buckets_2_to_3_moved_percent": 37.5,
+  "theoretical_new_shard_share_percent": 33.33,
+  "two_shard_bucket_owners": {
+    "shard_a": 67,
+    "shard_b": 61
+  },
+  "three_shard_bucket_owners": {
+    "shard_a": 38,
+    "shard_b": 42,
+    "shard_c": 48
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "run_id": "lab7-bucket",
+  "rows": [
+    {
+      "topology": "bucket",
+      "operation": "shard_local",
+      "concurrency": 1,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 158.13,
+      "mean_ms": 6.294,
+      "p95_ms": 10.443,
+      "p99_ms": 13.468
+    },
+    {
+      "topology": "bucket",
+      "operation": "cross_shard",
+      "concurrency": 1,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 110.7,
+      "mean_ms": 9.001,
+      "p95_ms": 16.267,
+      "p99_ms": 19.064
+    },
+    {
+      "topology": "bucket",
+      "operation": "shard_local",
+      "concurrency": 4,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 374.93,
+      "mean_ms": 10.382,
+      "p95_ms": 15.541,
+      "p99_ms": 16.982
+    },
+    {
+      "topology": "bucket",
+      "operation": "cross_shard",
+      "concurrency": 4,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 170.76,
+      "mean_ms": 23.212,
+      "p95_ms": 34.319,
+      "p99_ms": 68.887
+    },
+    {
+      "topology": "bucket",
+      "operation": "shard_local",
+      "concurrency": 8,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 384.73,
+      "mean_ms": 20.21,
+      "p95_ms": 38.868,
+      "p99_ms": 52.42
+    },
+    {
+      "topology": "bucket",
+      "operation": "cross_shard",
+      "concurrency": 8,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 165.44,
+      "mean_ms": 47.709,
+      "p95_ms": 74.301,
+      "p99_ms": 85.086
+    },
+    {
+      "topology": "bucket",
+      "operation": "shard_local",
+      "concurrency": 16,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 328.47,
+      "mean_ms": 45.921,
+      "p95_ms": 97.498,
+      "p99_ms": 152.91
+    },
+    {
+      "topology": "bucket",
+      "operation": "cross_shard",
+      "concurrency": 16,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 166.06,
+      "mean_ms": 93.649,
+      "p95_ms": 170.619,
+      "p99_ms": 244.858
+    },
+    {
+      "topology": "bucket",
+      "operation": "shard_local",
+      "concurrency": 32,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 274.89,
+      "mean_ms": 107.547,
+      "p95_ms": 248.847,
+      "p99_ms": 385.12
+    },
+    {
+      "topology": "bucket",
+      "operation": "cross_shard",
+      "concurrency": 32,
+      "requests": 200,
+      "errors": 0,
+      "error_rate_percent": 0.0,
+      "rps": 163.89,
+      "mean_ms": 178.897,
+      "p95_ms": 240.196,
+      "p99_ms": 294.399
+    }
+  ],
+  "saturation": {
+    "shard_local": {
+      "best_concurrency": 8,
+      "peak_rps": 384.73
+    },
+    "cross_shard": {
+      "best_concurrency": 4,
+      "peak_rps": 170.76
+    }
+  }
+}

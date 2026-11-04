@@ -1,0 +1,16 @@
+{
+  "run_id": "lab7-single",
+  "strategy": "single",
+  "count": 500,
+  "hot_tenant_ratio": 0.9,
+  "concurrency": 16,
+  "write_metrics": {
+    "requests": 500,
+    "errors": 0,
+    "error_rate_percent": 0.0,
+    "rps": 44.26,
+    "mean_ms": 359.049,
+    "p95_ms": 995.244,
+    "p99_ms": 1503.251
+  }
+}

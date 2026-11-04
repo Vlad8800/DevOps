@@ -1,5 +1,9 @@
 ## Helm-чарт TrackHub (Lab #4)
 
+### Лабораторна робота 7
+
+Окремий контур масштабування даних із двома PostgreSQL-шардами, API, генератором даних, моделлю решардингу, результатами вимірювань і переліком скріншотів описано в [docs/lab7/README.md](docs/lab7/README.md). Контур запускається через `docker-compose.lab7.yml` і не змінює наявні сервіси Docker та Kubernetes.
+
 Для ЛР-5 чарт розміщено в `charts/trackhub`. Файл
 `charts/trackhub/values-minikube.yaml` містить параметри локального кластера.
 `bootstrap/trackhub-root.yaml` є єдиним Application, який застосовується

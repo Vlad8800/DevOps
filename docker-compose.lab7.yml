@@ -1,0 +1,62 @@
+name: trackhub-lab7
+
+services:
+  lab7_api:
+    build:
+      context: .
+      dockerfile: Dockerfile.lab7
+    ports:
+      - "8010:8000"
+    environment:
+      LAB7_SINGLE_URL: postgresql+psycopg2://postgres:postgres@single:5432/lab7
+      LAB7_SHARD_A_URL: postgresql+psycopg2://postgres:postgres@shard_a:5432/lab7
+      LAB7_SHARD_B_URL: postgresql+psycopg2://postgres:postgres@shard_b:5432/lab7
+      LAB7_WORK_UNITS: "100000"
+    volumes:
+      - ./docs/lab7/results:/results
+    depends_on:
+      single:
+        condition: service_healthy
+      shard_a:
+        condition: service_healthy
+      shard_b:
+        condition: service_healthy
+
+  single:
+    image: postgres:15-alpine
+    environment: &postgres_env
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: lab7
+    ports:
+      - "5435:5432"
+    volumes:
+      - lab7_single:/var/lib/postgresql/data
+    healthcheck: &postgres_healthcheck
+      test: ["CMD-SHELL", "pg_isready -U postgres -d lab7"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  shard_a:
+    image: postgres:15-alpine
+    environment: *postgres_env
+    ports:
+      - "5433:5432"
+    volumes:
+      - lab7_shard_a:/var/lib/postgresql/data
+    healthcheck: *postgres_healthcheck
+
+  shard_b:
+    image: postgres:15-alpine
+    environment: *postgres_env
+    ports:
+      - "5434:5432"
+    volumes:
+      - lab7_shard_b:/var/lib/postgresql/data
+    healthcheck: *postgres_healthcheck
+
+volumes:
+  lab7_single:
+  lab7_shard_a:
+  lab7_shard_b:

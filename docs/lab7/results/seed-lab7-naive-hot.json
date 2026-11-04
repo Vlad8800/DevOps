@@ -1,0 +1,35 @@
+{
+  "run_id": "lab7-naive-hot",
+  "strategy": "naive",
+  "count": 500,
+  "hot_tenant_ratio": 0.9,
+  "concurrency": 16,
+  "write_metrics": {
+    "requests": 500,
+    "errors": 0,
+    "error_rate_percent": 0.0,
+    "rps": 47.36,
+    "mean_ms": 335.737,
+    "p95_ms": 900.849,
+    "p99_ms": 1160.423
+  },
+  "distribution": {
+    "run_id": "lab7-naive-hot",
+    "strategy": "naive",
+    "total": 500,
+    "shards": [
+      {
+        "name": "shard_a",
+        "records": 475,
+        "data_percent": 95.0,
+        "write_percent": 95.0
+      },
+      {
+        "name": "shard_b",
+        "records": 25,
+        "data_percent": 5.0,
+        "write_percent": 5.0
+      }
+    ]
+  }
+}

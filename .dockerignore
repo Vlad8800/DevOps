@@ -9,3 +9,6 @@ __pycache__
 *.db-journal
 *.sqlite
 *.sqlite3
+/DevOps/
+/kubectl-argo-rollouts-windows-amd64
+/wide

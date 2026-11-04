@@ -1,0 +1,6 @@
+FROM devops-web:latest
+WORKDIR /app
+COPY lab7 ./lab7
+COPY scripts ./scripts
+EXPOSE 8000
+CMD ["uvicorn", "lab7.api:app", "--host", "0.0.0.0", "--port", "8000"]
