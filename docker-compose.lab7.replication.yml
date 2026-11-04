@@ -1,0 +1,44 @@
+services:
+  shard_a_replica:
+    image: postgres:15-alpine
+    entrypoint: ["/bin/sh", "/usr/local/bin/lab7_replica_entrypoint.sh"]
+    environment:
+      PRIMARY_HOST: shard_a
+      REPLICA_NAME: shard_a_replica
+      PGPASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - lab7_shard_a_replica:/var/lib/postgresql/data
+      - ./scripts/lab7_replica_entrypoint.sh:/usr/local/bin/lab7_replica_entrypoint.sh:ro
+    depends_on:
+      shard_a:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d lab7 && psql -U postgres -d lab7 -Atqc 'select pg_is_in_recovery()' | grep -qx t"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  shard_b_replica:
+    image: postgres:15-alpine
+    entrypoint: ["/bin/sh", "/usr/local/bin/lab7_replica_entrypoint.sh"]
+    environment:
+      PRIMARY_HOST: shard_b
+      REPLICA_NAME: shard_b_replica
+      PGPASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - lab7_shard_b_replica:/var/lib/postgresql/data
+      - ./scripts/lab7_replica_entrypoint.sh:/usr/local/bin/lab7_replica_entrypoint.sh:ro
+    depends_on:
+      shard_b:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d lab7 && psql -U postgres -d lab7 -Atqc 'select pg_is_in_recovery()' | grep -qx t"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  lab7_shard_a_replica:
+  lab7_shard_b_replica:

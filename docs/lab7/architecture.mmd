@@ -1,0 +1,9 @@
+flowchart LR
+    Client[Клієнт] --> API[TrackHub Lab7 API]
+    API --> Router[Shard Router]
+    Router --> Buckets[128 віртуальних кошиків]
+    Buckets --> A[(Shard A Primary)]
+    Buckets --> B[(Shard B Primary)]
+    A -->|асинхронний WAL| AR[(Shard A Replica)]
+    B -->|асинхронний WAL| BR[(Shard B Replica)]
+    API -. контрольний тест .-> Single[(Single PostgreSQL)]

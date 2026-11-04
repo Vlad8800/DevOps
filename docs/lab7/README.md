@@ -14,13 +14,17 @@
 flowchart LR
     Client[Клієнт] --> API[TrackHub Lab7 API]
     API --> Router[Shard Router]
-    Router --> A[(PostgreSQL Shard A)]
-    Router --> B[(PostgreSQL Shard B)]
-    API --> Single[(PostgreSQL Single Node)]
     Router --> Buckets[128 віртуальних кошиків]
-    Buckets --> A
-    Buckets --> B
+    Buckets --> A[(Shard A Primary)]
+    Buckets --> B[(Shard B Primary)]
+    A -->|асинхронний WAL| AR[(Shard A Replica)]
+    B -->|асинхронний WAL| BR[(Shard B Replica)]
+    API -. контрольний тест .-> Single[(Single PostgreSQL)]
 ```
+
+Вихідний файл схеми: [`architecture.mmd`](architecture.mmd). API виконує CRUD лише на Primary відповідного шарду. Replica отримує WAL асинхронно та доступна для читання; автоматичного перемикання на неї при відмові Primary у цьому стенді немає. Контрольна база `single` не є реплікою шарду. Кількість подів застосунку в Kubernetes також не означає реплікацію PostgreSQL.
+
+![Архітектура двох шардів з репліками](results/architecture.png)
 
 `docker-compose.lab7.yml` запускає два незалежні PostgreSQL-вузли, контрольну одно-вузлову базу й API. Кожна база має власний том Docker. Маршрутизатор у `lab7/sharding.py` обчислює SHA-256 від `tenant_id:event_id`, вибирає один із 128 віртуальних кошиків, а власника кошика визначає rendezvous hashing. Однаковий ключ завжди веде на той самий шард. Створення через `POST /events` та читання, зміна і видалення через `GET`, `PATCH`, `DELETE /events/{tenant_id}/{event_id}` використовують той самий маршрут. Ізоляцію перевіряють запити `SELECT count(*)` окремо до Shard A та Shard B.
 
@@ -33,6 +37,17 @@ docker compose -f docker-compose.lab7.yml up -d --build
 docker compose -f docker-compose.lab7.yml ps
 curl.exe http://localhost:8010/health
 ```
+
+Реплікація для обох шардів запускається окремим Compose-файлом. Скрипт додає правило доступу для потокової реплікації на Primary, створює Replica через `pg_basebackup` і показує стан `streaming`:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\lab7_replication.ps1
+docker compose -f docker-compose.lab7.yml -f docker-compose.lab7.replication.yml ps
+docker compose -f docker-compose.lab7.yml -f docker-compose.lab7.replication.yml exec -T shard_a psql -U postgres -d lab7 -c "select application_name, state, sync_state from pg_stat_replication"
+docker compose -f docker-compose.lab7.yml -f docker-compose.lab7.replication.yml exec -T shard_b psql -U postgres -d lab7 -c "select application_name, state, sync_state from pg_stat_replication"
+```
+
+На перевіреному стенді `shard_a_replica` і `shard_b_replica` мають стан `streaming`, режим `async`. Перевірка нового запису з API показала `pg_is_in_recovery() = true` та один запис з тим самим `event_id` на репліці. Пароль `postgres` у Compose використано лише для локального навчального стенда.
 
 ## 2.3 Розподіл і гарячий шард
 
@@ -101,6 +116,19 @@ docker compose -f docker-compose.lab7.yml run --rm --no-deps lab7_api python -m 
 
 ![Порівняння продуктивності читання](results/benchmark-comparison.png)
 
+## 3 Вимоги до Git-репозиторію та документації
+
+| Вимога | Реалізація й доказ у репозиторії |
+| --- | --- |
+| Shard Router і маршрутизація CRUD | `lab7/sharding.py`, `lab7/api.py`, `tests/test_lab7_sharding.py` |
+| Генерація даних і Data Distribution Matrix | `lab7/scenarios.py seed`, `results/seed-lab7-naive-hot.json`, `results/seed-lab7-bucket.json` |
+| Hot Shard до та після оптимізації | `lab7/scenarios.py seed`, `results/hot-shard-resources.json`, `results/hot-shard-comparison.png` |
+| Single Node проти Sharded Cluster | `results/benchmark-lab7-single.json`, `results/benchmark-lab7-bucket.json`, `results/benchmark-comparison.png` |
+| Архітектура та реплікація | `architecture.mmd`, `results/architecture.png`, `docker-compose.lab7.replication.yml`, `scripts/lab7_replication.ps1` |
+| Звіт і скріншоти | `Lab7_Report_TrackHub.docx`, каталог `evidence/` |
+
+Файли `results/` і `evidence/` розташовані відносно цього README у `docs/lab7/`. Графік Hot Shard та схема архітектури відкриваються без запуску контейнерів. Для живого показу реплікації слід запустити команду вище й побачити `streaming` для обох Replica.
+
 ## Скріншоти для підсумкового звіту
 
 | Крок | Що має бути видно | Мінімум |
@@ -111,4 +139,5 @@ docker compose -f docker-compose.lab7.yml run --rm --no-deps lab7_api python -m 
 | 2.4 | Локальний GET і глобальний `/search` із затримками | 1–2 |
 | 2.5 | Вивід `reshard` з часткою переміщених ключів | 1 |
 | 2.6 | Таблиці benchmark для `single`, `bucket shard_local`, `bucket cross_shard` та графік | 2–3 |
+| 3 | Архітектурна схема; `docker compose ps` із двома Replica; `pg_stat_replication` зі станом `streaming` | 2–3 |
 | Захист | `kubectl` / Docker, фактичні таблиці Shard A і B, маршрут нової події | 1–2 |
