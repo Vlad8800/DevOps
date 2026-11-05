@@ -15,7 +15,7 @@ config:
   appEnv: "development"
   defaultPriority: "hight"
   databaseUrl: "sqlite:///./dev.db"
-  failRate: 0.8
+  failRate: 0
 
 monitoring:
   enabled: true
