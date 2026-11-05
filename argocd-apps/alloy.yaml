@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alloy
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: alloy
+    targetRevision: "1.15.0"
+    helm:
+      releaseName: alloy
+      valuesObject:
+        alloy:
+          configMap:
+            content: |
+              discovery.kubernetes "trackhub" {
+                role = "pod"
+                namespaces {
+                  names = ["trackhub"]
+                }
+              }
+
+              discovery.relabel "trackhub" {
+                targets = discovery.kubernetes.trackhub.targets
+                rule {
+                  source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+                  regex = "trackhub"
+                  action = "keep"
+                }
+                rule {
+                  source_labels = ["__meta_kubernetes_namespace"]
+                  target_label = "namespace"
+                }
+                rule {
+                  source_labels = ["__meta_kubernetes_pod_name"]
+                  target_label = "pod"
+                }
+                rule {
+                  source_labels = ["__meta_kubernetes_pod_container_name"]
+                  target_label = "container"
+                }
+              }
+
+              loki.source.kubernetes "trackhub" {
+                targets = discovery.relabel.trackhub.output
+                forward_to = [loki.write.local.receiver]
+              }
+
+              loki.write "local" {
+                endpoint {
+                  url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+                }
+              }
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

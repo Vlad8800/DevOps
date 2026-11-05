@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: "92.18.0"
+    helm:
+      releaseName: kube-prometheus-stack
+      valuesObject:
+        prometheus:
+          prometheusSpec:
+            retention: 2d
+            serviceMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorNamespaceSelector: {}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 350Mi
+        alertmanager:
+          alertmanagerSpec:
+            resources:
+              requests:
+                cpu: 25m
+                memory: 100Mi
+        grafana:
+          sidecar:
+            dashboards:
+              enabled: true
+              label: grafana_dashboard
+              labelValue: "1"
+              searchNamespace: ALL
+          additionalDataSources:
+            - name: Loki
+              uid: loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.monitoring.svc.cluster.local
+              isDefault: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
