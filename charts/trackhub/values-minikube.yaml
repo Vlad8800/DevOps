@@ -30,6 +30,13 @@ rollout:
       steps:
         - setWeight: 20
         - pause: {duration: 60s}
+        - analysis:
+            templates:
+              - templateName: trackhub-success-rate
+            args:
+              - name: latest-hash
+                valueFrom:
+                  podTemplateHashValue: Latest
         - setWeight: 60
         - pause: {duration: 30s}
         - setWeight: 80
