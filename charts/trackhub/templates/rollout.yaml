@@ -28,6 +28,9 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: FAIL_RATE
+              value: {{ .Values.config.failRate | quote }}
           envFrom:
             - configMapRef:
                 name: {{ include "trackhub.fullname" . }}-config

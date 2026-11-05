@@ -36,6 +36,16 @@ config:
   appEnv: "development"
   defaultPriority: "low"
   databaseUrl: "sqlite:///./dev.db"
+  failRate: 0
+
+monitoring:
+  enabled: false
+  prometheusAddress: http://kube-prometheus-stack-prometheus.monitoring.svc:9090
+  analysis:
+    interval: 30s
+    count: 3
+    failureLimit: 0
+    successThreshold: 0.95
 
 secrets:
   existingSecret: ""

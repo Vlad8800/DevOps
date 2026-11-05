@@ -4,6 +4,10 @@
 
 Окремий контур масштабування даних із двома PostgreSQL-шардами, їхніми потоковими репліками, API, генератором даних, моделлю решардингу, результатами вимірювань і переліком скріншотів описано в [docs/lab7/README.md](docs/lab7/README.md). Основний контур запускається через `docker-compose.lab7.yml`; репліки додаються через `docker-compose.lab7.replication.yml` і `scripts/lab7_replication.ps1`. Цей контур не змінює наявні сервіси Kubernetes.
 
+ЛР 7 з курсу **«Технології DevOps»** про метрики, логи, Grafana та
+автоматичний відкат описана окремо в
+[docs/observability-lab7/README.md](docs/observability-lab7/README.md).
+
 Для ЛР-5 чарт розміщено в `charts/trackhub`. Файл
 `charts/trackhub/values-minikube.yaml` містить параметри локального кластера.
 `bootstrap/trackhub-root.yaml` є єдиним Application, який застосовується
@@ -34,8 +38,8 @@ Application. Після досліду `selfHeal: true` повертає ста�
 `minikube image load` не використовується.
 
 ### Різниця між `version` та `appVersion`
-- **`version`** (`0.1.1`): семантична версія самого Helm-чарта (його шаблонів, конфігурації `values.yaml` та структури).
-- **`appVersion`** (`1.2.1`): версія пакованого застосунку (Docker-образу TrackHub), яка не залежить від версії інфраструктурних маніфестів.
+- **`version`** (`0.2.0`): семантична версія самого Helm-чарта (його шаблонів, конфігурації `values.yaml` та структури).
+- **`appVersion`** (`1.3.1`): версія пакованого застосунку (Docker-образу TrackHub), яка не залежить від версії інфраструктурних маніфестів.
 
 ### Параметри чарта (`values.yaml`)
 

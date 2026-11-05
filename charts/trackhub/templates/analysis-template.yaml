@@ -1,0 +1,24 @@
+{{- if and .Values.monitoring.enabled .Values.rollout.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: trackhub-success-rate
+  labels:
+    {{- include "trackhub.labels" . | nindent 4 }}
+spec:
+  args:
+    - name: latest-hash
+  metrics:
+    - name: success-rate
+      interval: {{ .Values.monitoring.analysis.interval }}
+      count: {{ .Values.monitoring.analysis.count }}
+      failureLimit: {{ .Values.monitoring.analysis.failureLimit }}
+      successCondition: result[0] >= {{ .Values.monitoring.analysis.successThreshold }}
+      provider:
+        prometheus:
+          address: {{ .Values.monitoring.prometheusAddress | quote }}
+          query: |
+            (sum(rate(trackhub_http_requests_total{namespace="{{ .Release.Namespace }}",rollouts_pod_template_hash="{{ "{{args.latest-hash}}" }}",status!~"5.."}[1m])) or vector(0))
+            /
+            clamp_min((sum(rate(trackhub_http_requests_total{namespace="{{ .Release.Namespace }}",rollouts_pod_template_hash="{{ "{{args.latest-hash}}" }}"}[1m])) or vector(0)), 0.001)
+{{- end }}

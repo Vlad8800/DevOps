@@ -1,0 +1,12 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "trackhub.fullname" . }}-dashboard
+  labels:
+    {{- include "trackhub.labels" . | nindent 4 }}
+    grafana_dashboard: "1"
+data:
+  trackhub-observability.json: |-
+{{ .Files.Get "dashboards/trackhub-observability.json" | indent 4 }}
+{{- end }}
