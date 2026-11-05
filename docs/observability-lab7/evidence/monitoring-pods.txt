@@ -1,0 +1,10 @@
+NAME                                                        READY   STATUS    RESTARTS      AGE
+alertmanager-kube-prometheus-stack-alertmanager-0           2/2     Running   0             38m
+alloy-q4db8                                                 2/2     Running   0             55m
+kube-prometheus-stack-grafana-549fcc58dd-s2vv5              3/3     Running   0             15m
+kube-prometheus-stack-kube-state-metrics-645c589fb6-vflcl   1/1     Running   1 (49m ago)   79m
+kube-prometheus-stack-operator-7cdc8864dd-wkr6x             1/1     Running   1 (49m ago)   79m
+kube-prometheus-stack-prometheus-node-exporter-kbb4t        1/1     Running   1 (49m ago)   79m
+loki-0                                                      2/2     Running   2 (49m ago)   86m
+loki-gateway-cd47c7dc8-zfwk4                                2/2     Running   0             86m
+prometheus-kube-prometheus-stack-prometheus-0               2/2     Running   0             35m

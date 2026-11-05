@@ -1,0 +1,11 @@
+{
+  "captured_at": "2026-11-05T18:25:30.3125262+02:00",
+  "git_revision": "2092686",
+  "rollout_phase": "Healthy",
+  "rollout_abort": null,
+  "stable_hash": "5d4cdfbd48",
+  "current_hash": "5d4cdfbd48",
+  "desired_replicas": 6,
+  "ready_replicas": 6,
+  "error_fraction": 0.0
+}

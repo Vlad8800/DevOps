@@ -1,0 +1,31 @@
+Name:            trackhub
+Namespace:       trackhub
+Status:          ✖ Degraded
+Message:         RolloutAborted: Rollout aborted update to revision 3: Step-based analysis phase error/failed: Metric "success-rate" assessed Failed due to failed (1) > failureLimit (0)
+Strategy:        Canary
+  Step:          0/7
+  SetWeight:     0
+  ActualWeight:  0
+Images:          ghcr.io/vlad8800/devops:1.3.1 (stable)
+Replicas:
+  Desired:       6
+  Current:       6
+  Updated:       0
+  Ready:         6
+  Available:     6
+
+NAME                                  KIND         STATUS        AGE    INFO
+⟳ trackhub                            Rollout      ✖ Degraded    5d18h  
+├──# revision:3                                                         
+│  ├──⧉ trackhub-6dd65bc794           ReplicaSet   • ScaledDown  2m30s  canary
+│  └──α trackhub-6dd65bc794-3-2       AnalysisRun  ✖ Failed      61s    ✖ 1
+├──# revision:2                                                         
+│  └──⧉ trackhub-5d4cdfbd48           ReplicaSet   ✔ Healthy     36m    stable
+│     ├──□ trackhub-5d4cdfbd48-7lzxb  Pod          ✔ Running     17m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-nzjhg  Pod          ✔ Running     15m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-s5kgs  Pod          ✔ Running     14m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-fqnmj  Pod          ✔ Running     13m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-ptjxl  Pod          ✔ Running     7m41s  ready:1/1
+│     └──□ trackhub-5d4cdfbd48-k2nlw  Pod          ✔ Running     61s    ready:1/1
+└──# revision:1                                                         
+   └──⧉ trackhub-84dc55f8d4           ReplicaSet   • ScaledDown  5d18h  

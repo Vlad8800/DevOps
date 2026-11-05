@@ -3,6 +3,8 @@
 Ця лабораторна стосується TrackHub у Minikube з Argo CD та Argo Rollouts.
 Попередня `docs/lab7` є окремою лабораторною про шардинг даних.
 
+Виконані кроки, результати вимірювань і скріншоти зібрані у [звіті](REPORT.md).
+
 ## Що розгортається з Git
 
 - `argocd-apps/monitoring.yaml`: kube-prometheus-stack, включно з Prometheus,

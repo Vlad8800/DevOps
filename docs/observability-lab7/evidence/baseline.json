@@ -1,0 +1,13 @@
+{
+  "captured_at": "2026-11-05T18:13:30.7798563+02:00",
+  "replicas": "5",
+  "targets_up": 5,
+  "targets_total": 5,
+  "metrics": {
+    "rps": 36.847749499612796,
+    "cpu_cores": 0.29984919033261487,
+    "p95_seconds": 0.061630717724180134,
+    "memory_bytes": 321093632.0,
+    "error_fraction": 0.0
+  }
+}

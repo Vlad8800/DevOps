@@ -1,0 +1,7 @@
+NAME            SYNC STATUS   HEALTH STATUS
+alloy           Synced        Healthy
+argo-rollouts   Synced        Healthy
+loki            Synced        Healthy
+monitoring      Synced        Healthy
+trackhub        Synced        Healthy
+trackhub-root   Synced        Healthy

@@ -1,0 +1,8 @@
+NAME                        READY   STATUS      RESTARTS   AGE
+lab7-load-bad-1-5n729       0/1     Completed   0          26m
+trackhub-5d4cdfbd48-7lzxb   1/1     Running     0          40m
+trackhub-5d4cdfbd48-fqnmj   1/1     Running     0          36m
+trackhub-5d4cdfbd48-k2nlw   1/1     Running     0          24m
+trackhub-5d4cdfbd48-nzjhg   1/1     Running     0          38m
+trackhub-5d4cdfbd48-ptjxl   1/1     Running     0          30m
+trackhub-5d4cdfbd48-s5kgs   1/1     Running     0          37m

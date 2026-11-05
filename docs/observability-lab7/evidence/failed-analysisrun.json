@@ -1,0 +1,89 @@
+{
+    "apiVersion": "argoproj.io/v1alpha1",
+    "kind": "AnalysisRun",
+    "metadata": {
+        "annotations": {
+            "rollout.argoproj.io/revision": "3"
+        },
+        "creationTimestamp": "2026-11-05T16:21:13Z",
+        "generation": 2,
+        "labels": {
+            "app.kubernetes.io/instance": "trackhub",
+            "app.kubernetes.io/name": "trackhub",
+            "rollout-type": "Step",
+            "rollouts-pod-template-hash": "6dd65bc794",
+            "step-index": "2"
+        },
+        "name": "trackhub-6dd65bc794-3-2",
+        "namespace": "trackhub",
+        "ownerReferences": [
+            {
+                "apiVersion": "argoproj.io/v1alpha1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Rollout",
+                "name": "trackhub",
+                "uid": "409862de-fca1-4ebb-a909-b723c764cb1e"
+            }
+        ],
+        "resourceVersion": "29694",
+        "uid": "f3f44370-1b9a-4b5c-a0d1-14e928c8caf0"
+    },
+    "spec": {
+        "args": [
+            {
+                "name": "latest-hash",
+                "value": "6dd65bc794"
+            }
+        ],
+        "metrics": [
+            {
+                "count": 3,
+                "failureLimit": 0,
+                "interval": "30s",
+                "name": "success-rate",
+                "provider": {
+                    "prometheus": {
+                        "address": "http://kube-prometheus-stack-prometheus.monitoring.svc:9090",
+                        "authentication": {
+                            "oauth2": {},
+                            "sigv4": {}
+                        },
+                        "query": "(sum(rate(trackhub_http_requests_total{namespace=\"trackhub\",rollouts_pod_template_hash=\"{{args.latest-hash}}\",status!~\"5..\"}[1m])) or vector(0))\n/\nclamp_min((sum(rate(trackhub_http_requests_total{namespace=\"trackhub\",rollouts_pod_template_hash=\"{{args.latest-hash}}\"}[1m])) or vector(0)), 0.001)\n"
+                    }
+                },
+                "successCondition": "result[0] \u003e= 0.95"
+            }
+        ]
+    },
+    "status": {
+        "completedAt": "2026-11-05T16:21:13Z",
+        "dryRunSummary": {},
+        "message": "Metric \"success-rate\" assessed Failed due to failed (1) \u003e failureLimit (0)",
+        "metricResults": [
+            {
+                "count": 1,
+                "failed": 1,
+                "measurements": [
+                    {
+                        "finishedAt": "2026-11-05T16:21:13Z",
+                        "phase": "Failed",
+                        "startedAt": "2026-11-05T16:21:13Z",
+                        "value": "[0.20527859237536658]"
+                    }
+                ],
+                "metadata": {
+                    "ResolvedPrometheusQuery": "(sum(rate(trackhub_http_requests_total{namespace=\"trackhub\",rollouts_pod_template_hash=\"6dd65bc794\",status!~\"5..\"}[1m])) or vector(0))\n/\nclamp_min((sum(rate(trackhub_http_requests_total{namespace=\"trackhub\",rollouts_pod_template_hash=\"6dd65bc794\"}[1m])) or vector(0)), 0.001)\n"
+                },
+                "name": "success-rate",
+                "phase": "Failed"
+            }
+        ],
+        "phase": "Failed",
+        "runSummary": {
+            "count": 1,
+            "failed": 1
+        },
+        "startedAt": "2026-11-05T16:21:13Z"
+    }
+}

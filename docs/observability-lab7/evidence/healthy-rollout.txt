@@ -1,0 +1,30 @@
+Name:            trackhub
+Namespace:       trackhub
+Status:          ✔ Healthy
+Strategy:        Canary
+  Step:          7/7
+  SetWeight:     100
+  ActualWeight:  100
+Images:          ghcr.io/vlad8800/devops:1.3.1 (stable)
+Replicas:
+  Desired:       6
+  Current:       6
+  Updated:       6
+  Ready:         6
+  Available:     6
+
+NAME                                  KIND         STATUS        AGE    INFO
+⟳ trackhub                            Rollout      ✔ Healthy     5d18h  
+├──# revision:4                                                         
+│  └──⧉ trackhub-5d4cdfbd48           ReplicaSet   ✔ Healthy     39m    stable
+│     ├──□ trackhub-5d4cdfbd48-7lzxb  Pod          ✔ Running     20m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-nzjhg  Pod          ✔ Running     18m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-s5kgs  Pod          ✔ Running     17m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-fqnmj  Pod          ✔ Running     17m    ready:1/1
+│     ├──□ trackhub-5d4cdfbd48-ptjxl  Pod          ✔ Running     10m    ready:1/1
+│     └──□ trackhub-5d4cdfbd48-k2nlw  Pod          ✔ Running     4m18s  ready:1/1
+├──# revision:3                                                         
+│  ├──⧉ trackhub-6dd65bc794           ReplicaSet   • ScaledDown  5m47s  
+│  └──α trackhub-6dd65bc794-3-2       AnalysisRun  ✖ Failed      4m18s  ✖ 1
+└──# revision:1                                                         
+   └──⧉ trackhub-84dc55f8d4           ReplicaSet   • ScaledDown  5d18h  

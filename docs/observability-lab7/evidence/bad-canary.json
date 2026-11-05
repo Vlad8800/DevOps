@@ -1,0 +1,12 @@
+{
+  "captured_at": "2026-11-05T18:21:08.3446998+02:00",
+  "stable_hash": "5d4cdfbd48",
+  "canary_hash": "6dd65bc794",
+  "canary_pod": "trackhub-6dd65bc794-b5ff9",
+  "metrics": {
+    "rps": 97.42356498431089,
+    "global_error_fraction": 0.10880115038879892,
+    "canary_success_fraction": 0.18907563025210083
+  },
+  "sample_error_log": "{\"time\": \"2026-11-05T16:21:07.788821+00:00\", \"level\": \"error\", \"message\": \"http_request\", \"method\": \"GET\", \"route\": \"/api/tasks\", \"status\": 500, \"duration_ms\": 0.065}\n"
+}
