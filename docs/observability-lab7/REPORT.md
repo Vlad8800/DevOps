@@ -6,7 +6,7 @@
 
 У `argocd-apps/` додано Argo CD Applications для kube-prometheus-stack (Prometheus, Alertmanager, Grafana), Loki та Grafana Alloy. На момент завершення всі застосунки `Synced/Healthy`, а довготривалі поди моніторингу `Running`. Стан підтверджують [застосунки](evidence/applications.txt) і [поди](evidence/monitoring-pods.txt). Grafana доступна локально через перенаправлення порту, наведене в [інструкції](README.md).
 
-**Скріншот для захисту:** [дашборд Grafana](evidence/grafana-dashboard.png), на якому видно, що Grafana працює і завантажила дашборд із Git.
+**Скріншоти для захисту:** [вузол Ready та Argo CD Synced/Healthy](evidence/step1-node-and-apps-2026-11-11.png), [поди моніторингу Running](evidence/step1-monitoring-pods-2026-11-11.png), [дашборд Grafana](evidence/grafana-dashboard.png). Перші два скріншоти користувач повторно зробив 11 листопада 2026 року після запуску кластера.
 
 ## 2. Метрики застосунку та ServiceMonitor
 
