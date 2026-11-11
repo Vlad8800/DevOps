@@ -47,7 +47,7 @@ Helm chart містить `AnalysisTemplate`: Prometheus вимірює част
 
 Під час тесту генератор виконав **17 862** запити: 17 072 відповідей HTTP 200, 786 відповідей HTTP 500 і 4 транспортні помилки. Середній зріз Prometheus під час помилкової ревізії: 97,42 RPS, глобальна частка 5xx 10,88%, успішність canary 18,91%. Після відновлення частка 5xx у контрольному зрізі дорівнювала 0%. Дані: [лог навантаження](evidence/load-bad.txt), [зріз помилкової версії](evidence/bad-canary.json), [AnalysisRun](evidence/failed-analysisrun.json), [стан після відновлення](evidence/recovered.json).
 
-**Скріншоти для захисту:** [провал AnalysisRun](evidence/failed-analysis-measurement.png), [історія ревізій і стабільні поди](evidence/argo-rollout-history.png), [сплеск 5xx на дашборді](evidence/grafana-dashboard.png), [логи нового пода](evidence/grafana-error-logs.png). Текстові докази: [rollout після abort](evidence/aborted-rollout.txt), [стабільні поди](evidence/stable-pods-after-abort.txt), [здоровий rollout після повернення конфігурації](evidence/healthy-rollout.txt).
+**Скріншоти для захисту:** [поточна команда: AnalysisRun Failed, помилкова ревізія ScaledDown і стабільна ревізія Healthy 6/6](evidence/step6-failed-analysis-healthy-rollout-2026-11-11.png), [вимірювання невдалої перевірки](evidence/failed-analysis-measurement.png), [історія ревізій](evidence/argo-rollout-history.png), [сплеск 5xx на дашборді](evidence/grafana-dashboard.png), [логи нового пода](evidence/grafana-error-logs.png). Текстові докази: [rollout після abort](evidence/aborted-rollout.txt), [стабільні поди](evidence/stable-pods-after-abort.txt), [здоровий rollout після повернення конфігурації](evidence/healthy-rollout.txt).
 
 ## 7. Перевірка під час захисту
 
