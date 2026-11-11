@@ -24,7 +24,7 @@ TrackHub віддає `/metrics`. Лічильник `trackhub_http_requests_tot
 
 JSON дашборда зберігається в `charts/trackhub/dashboards/trackhub-observability.json` і доставляється через ConfigMap із міткою `grafana_dashboard`. Дашборд має панелі RPS, частки 5xx, p95, CPU, пам'яті та логів Loki.
 
-**Скріншот для захисту:** [TrackHub · Observability and Canary](evidence/grafana-dashboard.png). На ньому видно зміну метрик під час тесту помилкової версії.
+**Скріншоти для захисту:** [поточний дашборд із шістьма панелями, скрін користувача від 11 листопада](evidence/step4-grafana-dashboard-2026-11-11.png) і [дашборд під час тесту помилкової версії](evidence/grafana-dashboard.png). На другому видно зміну метрик під час тесту.
 
 ## 5. Навантаження та зміна кількості реплік
 
