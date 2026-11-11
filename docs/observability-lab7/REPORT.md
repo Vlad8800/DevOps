@@ -18,7 +18,7 @@ TrackHub віддає `/metrics`. Лічильник `trackhub_http_requests_tot
 
 Застосунок пише в stdout JSON з полями `time`, `level`, `message`, `method`, `route`, `status`, `duration_ms`. Alloy надсилає логи подів у Loki. У Grafana Explore запит `{namespace="trackhub",container="trackhub",pod="trackhub-6dd65bc794-b5ff9"} | json | status >= 500` показав помилки canary-пода.
 
-**Скріншот для захисту:** [відфільтровані 5xx логи в Grafana Explore](evidence/grafana-error-logs.png).
+**Скріншоти для захисту:** [поточні JSON-логи TrackHub у Grafana Explore, скрін користувача від 11 листопада](evidence/step3-loki-json-logs-2026-11-11.png) і [відфільтровані 5xx логи під час помилкового rollout](evidence/grafana-error-logs.png).
 
 ## 4. Дашборд із Git
 
