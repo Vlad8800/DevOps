@@ -12,7 +12,7 @@
 
 TrackHub віддає `/metrics`. Лічильник `trackhub_http_requests_total` має мітки `method`, `route` і `status`; гістограма `trackhub_http_request_duration_seconds` вимірює затримку. Для `route` використовується шаблон маршруту, а не конкретний ідентифікатор об'єкта. Helm chart створює `ServiceMonitor` для Prometheus.
 
-**Скріншоти для захисту:** [шість цілей TrackHub у стані UP](evidence/prometheus-targets.png) і [виконаний PromQL-запит до лічильника](evidence/prometheus-query.png).
+**Скріншоти для захисту:** [шість із шести цілей TrackHub у стані UP, скрін користувача від 11 листопада](evidence/step2-prometheus-targets-2026-11-11.png) і [виконаний PromQL-запит до лічильника](evidence/prometheus-query.png).
 
 ## 3. Структуровані логи та Loki
 
