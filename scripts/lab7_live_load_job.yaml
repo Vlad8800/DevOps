@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: lab7-live-load-
+  namespace: trackhub
+spec:
+  ttlSecondsAfterFinished: 86400
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: load
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-u", "-c"]
+          args:
+            - |
+              import concurrent.futures
+              import time
+              import urllib.error
+              import urllib.request
+
+              url = "http://trackhub.trackhub.svc.cluster.local:8000/api/tasks"
+              duration = 900
+              workers = 12
+
+              def request_once(_):
+                  try:
+                      with urllib.request.urlopen(url, timeout=5) as response:
+                          return response.status
+                  except urllib.error.HTTPError as error:
+                      return error.code
+                  except (OSError, TimeoutError):
+                      return 0
+
+              deadline = time.monotonic() + duration
+              next_report = time.monotonic() + 10
+              totals = {}
+              with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+                  while time.monotonic() < deadline:
+                      for status in pool.map(request_once, range(workers)):
+                          totals[status] = totals.get(status, 0) + 1
+                      if time.monotonic() >= next_report:
+                          print(f"requests={sum(totals.values())} statuses={totals}", flush=True)
+                          next_report += 10
+              print(f"finished: requests={sum(totals.values())} statuses={totals}", flush=True)
