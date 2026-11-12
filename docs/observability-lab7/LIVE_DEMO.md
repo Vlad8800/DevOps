@@ -7,6 +7,7 @@
 ```powershell
 cd 'C:\Users\Vlad\Documents\Навчання\DevOps'
 docker info --format '{{.ServerVersion}}'
+minikube start --preload=false
 minikube status
 kubectl get applications -n argocd
 kubectl argo rollouts get rollout trackhub -n trackhub
