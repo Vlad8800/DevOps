@@ -55,7 +55,13 @@ kubectl get analysisruns,rollouts -n trackhub
 kubectl argo rollouts get rollout trackhub -n trackhub
 ```
 
-Canary має кроки 20% трафіку, паузу 60 секунд і Prometheus AnalysisRun. Успіх вимагає щонайменше 95% відповідей без 5xx **саме від pod нової ревізії**. Якщо успішність нижча, AnalysisRun стає `Failed`, а rollout автоматично припиняє просування версії. Збережіть ім'я нового pod або hash ревізії з `kubectl get pods` для фільтра в Loki. **Скрін:** `AnalysisRun Failed`, `RolloutAborted`/`Degraded` і stable pod, що залишилися доступними. У вікні навантаження мають з'явитися відповіді `500`.
+Canary має кроки 20% трафіку, паузу 60 секунд і Prometheus AnalysisRun. Успіх вимагає щонайменше 95% відповідей без 5xx **саме від pod нової ревізії**. Якщо успішність нижча, AnalysisRun стає `Failed`, а **Argo Rollouts без ручної команди** виконує `RolloutAborted`: вага canary повертається до 0%, її pod зменшуються до нуля, трафік обслуговують шість stable pod. **Не виконуйте крок 6 до появи цього стану та збереження скріншота.** Перевірте також поле abort:
+
+```powershell
+kubectl get rollout trackhub -n trackhub -o jsonpath='{.status.abort}'
+```
+
+Очікуване значення — `true`. Збережіть ім'я нового pod або hash ревізії з `kubectl get pods` для фільтра в Loki. **Скрін:** `AnalysisRun Failed`, `RolloutAborted`/`Degraded`, `SetWeight: 0`, stable pod 6/6. У вікні навантаження мають з'явитися відповіді `500`, а після abort нові відповіді знову мають бути `200`.
 
 ## 5. Показати Grafana й логи лише нової версії
 
